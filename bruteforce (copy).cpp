@@ -4,77 +4,64 @@
 #define MOD 1000000007
 using namespace std;
 #define fast ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-
+int c=-1,n;
+int a[14][14];
+void done(int r,int d,int posx,int posy)
+{
+	if(posx==n-1&&posy==n-1)
+	{
+		if(a[posx][posy]%2==0)
+			c=1;return;
+	}
+	if(a[posx][posy]%2==0)
+	{
+		if(a[posx+1][posy]%2==0)
+		{
+			if(r>0)
+			done(r-1,d,posx+1,posy);
+		}
+		if(a[posx][posy+1]%2==0)
+		{
+			if(d>0)
+				done(r,d-1,posx,posy+1);
+		}
+	}
+	else return;
+}
 void solve()
 {
-	int n;
-	cin>>n;
-	char a[n][n],b[n/2][n/2],c[n/2][n/2];
-	int b1[1000]={0},c1[1000]={0};
-	for(int i=0;i<n;++i)
-		for(int j=0;j<n;++j)
-			cin>>a[i][j];
-for(int i=0;i<n;++i)
+	
+  //llt n;
+  cin>>n;
+for(llt i=0;i<n;++i)
+	for(int j=0;j<n;++j)
   {
-			for(int j=0;j<n/2;++j)
-			{
-				b[i][j]=a[i][j];
-			}
-			
-  } 
-  int x=0;
-for(int i=0;i<n;++i)
+	cin>>a[i][j];
+	
+  }
+  int r=n-1,d=n-1,posx=0,posy=0;
+  if(a[0][0]%2==0)
   {
-			for(int j=0;j<n/2;++j)
-			{
-				if(b[i][j]=='1')
-					{++x;b1[i]+=1;}
-			}
-			//cout<<"\n";
-			
-  } 
-  int k=0;
-  for(int i=0;i<n;++i)
-  {
-  	for(int j=n-1;j>=n/2;--j)
+  	if(a[posx+1][posy]%2==0)
   	{
-  		//cout<<a[i][j];
-  		c[i][k]=a[i][j];
-  		//cout<<c[i][k];
-  		++k;
+  		if(r>0)
+  		done(r-1,d,posx+1,posy);
   	}
- //cout<<"\n";
-  	//cout<<k<<" ";
-  	k=0;
+  	if(a[posx][posy+1]%2==0)
+  	{
+  		if(d>0)
+  			done(r,d-1,posx,posy+1);
+  	}
   }
-  int y=0;
-  for(int i=0;i<n;++i)
-  {
-  	for(int j=0;j<n/2;++j)
-  		{
-  			if(c[i][j]=='1')
-  				{++y;c1[i]+=1;}
-  		}
-  	//cout<<"\n";
-  }
-  //cout<<k;*/
-  
-  //cout<<k;*/
-//cout<<x<<" "<<y
-  int m=abs(x-y);
+  if(c==1)
+  	cout<<"YES"<<endl;
+  else
+  	cout<<"NO"<<endl;
 
-  for(int i=0;i<n;++i)
-  {
-  	int v=0,w=0;
-  	v=x+c1[i]-b1[i];
-  	w=y+b1[i]-c1[i];
-  	//cout<<v<<" "<<w<<endl;
-  	if(abs(v-w)<m)
-  		m=abs(v-w);
-  }
-  cout<<m<<endl;
+
+	    
+	    
 }
-
 int main()
 {
 		fast
@@ -83,8 +70,8 @@ int main()
      	freopen("output.txt","w",stdout);
      	#endif   
         
-        int t;
-        cin>>t;
+        int t=1;
+        //cin>>t;
         while(t--)
         solve();
         return 0;
